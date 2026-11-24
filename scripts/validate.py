@@ -20,7 +20,8 @@ def entries(ref):
     for row in filter(None, tree.split(b"\0")):
         meta, path = row.decode().split("\t", 1)
         name = Path(path).stem
-        if not NAME.fullmatch(name) or path != f"packages/{name}.toml" or not meta.startswith("100644 blob "):
+        if (not NAME.fullmatch(name) or re.fullmatch(r"con|prn|aux|nul|(?:com|lpt)[1-9]", name)
+                or path != f"packages/{name}.toml" or not meta.startswith("100644 blob ")):
             raise ValueError(f"Invalid index file {path}")
         doc = tomllib.loads(git("show", f"{ref}:{path}").decode())
         repo = doc.get("repository", "")

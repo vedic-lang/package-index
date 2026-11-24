@@ -1,0 +1,4 @@
+repository = "vedic-lang/ganita"
+
+[releases]
+"0.1.0" = "7fdc4a3c233c68e0b1f8d390397e340fa8edd4e9"
